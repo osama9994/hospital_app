@@ -64,7 +64,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const Icon(
                   Icons.local_hospital_rounded,
                   size: 80,
-                  color: Colors.blue,
+                  color: Colors.green,
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -131,7 +131,7 @@ TextFormField(
                   onPressed: authState is AuthLoading ? null : _submitLogin,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
                   ),
                   child: authState is AuthLoading

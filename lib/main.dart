@@ -28,7 +28,7 @@ class MyApp extends ConsumerWidget {
       title: 'Hospital Management App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
       home: authState is AuthSuccess

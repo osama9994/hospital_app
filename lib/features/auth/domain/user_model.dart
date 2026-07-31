@@ -17,13 +17,36 @@ class UserModel {
 
   // تحويل JSON القادم من Backend Node.js إلى Object في Flutter
   factory UserModel.fromJson(Map<String, dynamic> json, {String? token}) {
+    final metadata = json['user_metadata'] is Map
+        ? Map<String, dynamic>.from(json['user_metadata'])
+        : <String, dynamic>{};
+    final appMetadata = json['app_metadata'] is Map
+        ? Map<String, dynamic>.from(json['app_metadata'])
+        : <String, dynamic>{};
+
+    final hospitalId = json['hospital_id']?.toString() ??
+        json['hospitalId']?.toString() ??
+        metadata['hospital_id']?.toString() ??
+        metadata['hospitalId']?.toString() ??
+        appMetadata['hospital_id']?.toString() ??
+        (json['hospital'] is Map ? json['hospital']['id']?.toString() : null) ??
+        '';
+
     return UserModel(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      email: json['email'] ?? '',
-      role: json['role'] ?? '',
-      hospitalId: json['hospital_id'] ?? '',
-      token: token,
+      id: json['id']?.toString() ?? '',
+      name: json['name']?.toString() ??
+          metadata['name']?.toString() ??
+          json['full_name']?.toString() ??
+          metadata['full_name']?.toString() ??
+          '',
+      email: json['email']?.toString() ?? '',
+      role: json['role']?.toString() ??
+          metadata['role']?.toString() ??
+          appMetadata['role']?.toString() ??
+          'patient',
+      hospitalId: hospitalId,
+      token:
+          token ?? json['token']?.toString() ?? json['access_token']?.toString(),
     );
   }
 
