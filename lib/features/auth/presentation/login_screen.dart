@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hospital_app/features/auth/presentation/auth_provider.dart';
-import 'package:hospital_app/features/auth/presentation/register_screen.dart';
+import 'auth_provider.dart';
+import 'register_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -34,6 +34,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // استماع للتغيرات في حالة التسجيل (إظهار رسائل تنبيهية فقط)
     ref.listen<AuthState>(authProvider, (previous, next) {
       if (next is AuthError) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -46,6 +47,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             backgroundColor: Colors.green,
           ),
         );
+        // التوجيه يتم تلقائياً عن طريق main.dart و RoleRouter
       }
     });
 
@@ -99,31 +101,31 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(height: 16),
 
                 // Password Field
-TextFormField(
-  controller: _passwordController,
-  obscureText: _obscurePassword,
-  decoration: InputDecoration(
-    labelText: 'Password',
-    prefixIcon: const Icon(Icons.lock_outline),
-    border: const OutlineInputBorder(),
-    suffixIcon: IconButton(
-      icon: Icon(
-        _obscurePassword ? Icons.visibility_off : Icons.visibility,
-      ),
-      onPressed: () {
-        setState(() {
-          _obscurePassword = !_obscurePassword;
-        });
-      },
-    ),
-  ),
-  validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your password';
-    }
-    return null;
-  },
-),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(height: 24),
 
                 // Login Button
